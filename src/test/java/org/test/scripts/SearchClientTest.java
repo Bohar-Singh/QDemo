@@ -2,7 +2,9 @@ package org.test.scripts;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.test.utilities.TestBase;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -20,13 +22,13 @@ public class SearchClientTest extends TestBase {
 	public void browserLaunch()
 	{
 		launchBrowser();
-		reports.createTest("Search Corporate");
+		//reports.createTest("Search Cor");
 	}
 	
 	@Test
 	public void searchClient() throws Exception
 	{
-		 ArrayList<String> data = getRowData("TestData", 6);
+		 ArrayList<String> data = getRowData("TestData", 7);
 		   
 		    //System.out.println(corName);
 		    
@@ -38,6 +40,19 @@ public class SearchClientTest extends TestBase {
 			
 			 TestBase.frames("login");
 			 TestBase.frames("leftbar");
+			 
+			 TestBase.click("ClientMngmnt");
+				TestBase.click("SearchClient");
+				Thread.sleep(2000);
+				driver.switchTo().defaultContent();
+				 TestBase.frames("login");
+				 
+				 driver.switchTo().frame(driver.findElement(By.xpath("//*[@id='mainfrmset']/frame[2]")));
+				 TestBase.frames("frm2");
+			    
+			    
+			    TestBase.inputData("FNameSearchClient", data.get(4));
+				TestBase.click("SearchBtnClient");
 	}
 
 }
